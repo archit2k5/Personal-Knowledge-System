@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: pks-mongo
+    restart: unless-stopped
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo_data:/data/db
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: pks-qdrant
+    restart: unless-stopped
+    ports:
+      - '6333:6333'
+      - '6334:6334'
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: pks-redis
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+
+volumes:
+  mongo_data:
+  qdrant_data:
+
